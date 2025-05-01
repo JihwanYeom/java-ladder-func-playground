@@ -7,12 +7,11 @@ public class Ladder {
 
     private final List<Line> lines;
 
-    private Ladder(List<Line> lines) {
-        this.lines = lines;
-    }
-
-    public static Ladder of(List<Line> lines) {
-        return new Ladder(lines);
+    public Ladder(int width, int height) {
+        lines = new ArrayList<Line>();
+        for(int i = 0; i < height; i++) {
+            lines.add(new Line(width));
+        }
     }
 
 }
