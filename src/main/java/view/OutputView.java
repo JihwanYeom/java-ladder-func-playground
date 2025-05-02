@@ -2,6 +2,7 @@ package view;
 
 import domain.Ladder;
 import domain.Line;
+import domain.Player;
 import java.util.List;
 
 public class OutputView {
@@ -24,6 +25,12 @@ public class OutputView {
             System.out.print(getPointFormat(point));
         }
         System.out.println("|");
+    }
+
+    public static void printResult(List<Player> players) {
+        for(int i = 0; i < players.size(); i++) {
+            System.out.println(i + " -> " + players.get(i).getPosition());
+        }
     }
 
     private static String getPointFormat(Boolean point) {
