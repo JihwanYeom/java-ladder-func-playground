@@ -1,7 +1,9 @@
 package domain;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Players {
     private final List<Player> players;
@@ -11,13 +13,27 @@ public class Players {
     }
 
     public static Players of(List<String> names) {
-        List<Player> players = new ArrayList<>();
-        for (String name : names) {
-            Name playerName = new Name(name);
-            Position playerPosition = new Position(names.indexOf(name));
-            players.add(new Player(playerName, playerPosition));
-        }
+        validate(names);
+        List<Player> players = names.stream()
+                .map(name -> new Player(new Name(name), new Position(names.indexOf(name))))
+                .collect(Collectors.toList());
         return new Players(players);
+    }
+
+    private static void validate(List<String> names) {
+        Set<String> nameSet = new HashSet<>();
+        for (String name : names) {
+            if (!nameSet.add(name)) {
+                throw new IllegalArgumentException("중복된 이름이 있습니다: " + name);
+            }
+        }
+    }
+
+    public Player findByName(Name name) {
+        return players.stream()
+                .filter(player -> player.hasName(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이름입니다: " + name.getName()));
     }
 
     public List<Player> getPlayers() {

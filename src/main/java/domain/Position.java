@@ -1,9 +1,19 @@
 package domain;
 
+import java.util.Objects;
+
 public class Position {
     private int position;
+
     public Position(int position) {
+        validate(position);
         this.position = position;
+    }
+
+    private void validate(int position) {
+        if (position < 0) {
+            throw new IllegalArgumentException("Position은 음수일 수 없습니다.");
+        }
     }
 
     public void moveLeft() {
@@ -16,5 +26,22 @@ public class Position {
 
     public int getPosition() {
         return position;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof Position)) {
+            return false;
+        }
+        Position other = (Position) object;
+        return position == other.position;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position);
     }
 }

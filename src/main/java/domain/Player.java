@@ -45,11 +45,15 @@ public class Player {
         return rightPoint != null && rightPoint.isMovable();
     }
 
-    public int getPosition() {
-        return position.getPosition();
+    public boolean hasName(Name other) {
+        return name.equals(other);
     }
 
-    public String getName() {
-        return name.getName();
+    public Position getPosition() {
+        return position;
+    }
+
+    public Name getName() {
+        return name;
     }
 }

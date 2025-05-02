@@ -2,6 +2,7 @@ package view;
 
 import domain.Ladder;
 import domain.Line;
+import domain.Name;
 import domain.Player;
 import domain.Players;
 import domain.Point;
@@ -15,6 +16,7 @@ public class OutputView {
     private static final String NO_LADDER_POINT = "     ";
 
     public static void printLadderInfo(Players players, Results results, Ladder ladder) {
+        System.out.println("사다리 결과");
         printPlayers(players.getPlayers());
         printLadder(ladder);
         printResults(results.getResults());
@@ -29,7 +31,7 @@ public class OutputView {
 
     public static void printPlayers(List<Player> players) {
         for(Player player : players) {
-            System.out.printf("%-5s ", player.getName());
+            System.out.printf("%-5s ", player.getName().getName());
         }
         System.out.println();
     }
@@ -51,27 +53,36 @@ public class OutputView {
         System.out.println("|");
     }
 
-    public static void printResult(String name, List<Player> players, List<Result> results) {
+    public static void printResult(String name, Players players, Results results) {
         System.out.println("실행 결과");
-        if(name.equals("all")) {
+
+        // "all"이 입력된 경우, 모든 결과를 출력
+        if ("all".equals(name)) {
             printAllResults(players, results);
-            return;
-        }
-        players.stream().filter(player -> player.getName().equals(name)).forEach(player -> {
-            Result result = results.get(player.getPosition());
-            System.out.println(player.getName() + " : " + result.getResult());
-        });
-    }
-
-    public static void printAllResults(List<Player> players, List<Result> results) {
-        for(Player player : players) {
-            Result result = results.get(player.getPosition());
-            System.out.println(player.getName()+ " : " + result.getResult());
+        } else {
+            printSingleResult(name, players, results);
         }
     }
 
+    private static void printSingleResult(String name, Players players, Results results) {
+        Player player = players.findByName(new Name(name));
+        Result result = results.findByPosition(player.getPosition());
+        System.out.println(player.getName().getName() + " : " + result.getResult());
+    }
+
+    private static void printAllResults(Players players, Results results) {
+        for (Player player : players.getPlayers()) {
+            Result result = results.findByPosition(player.getPosition());
+            System.out.println(player.getName().getName() + " : " + result.getResult());
+        }
+    }
     private static String getPointFormat(Boolean point) {
-        if(point) return LADDER_POINT;
-        return NO_LADDER_POINT;
+        String result;
+        if (point) {
+            result = LADDER_POINT;
+        } else {
+            result = NO_LADDER_POINT;
+        }
+        return result;
     }
 }

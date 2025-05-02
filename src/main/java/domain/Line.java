@@ -11,15 +11,32 @@ public class Line {
     public Line(int width) {
         points = new ArrayList<>();
         Random random = new Random();
-        points.add(new Point(random.nextBoolean()));
+
+        points.add(new Point(generateRandomState(random)));
         for (int i = 1; i < width; i++) {
-            Point lastPoint = points.get(points.size() - 1);
-            points.add(new Point(random.nextBoolean() && !lastPoint.isMovable()));
+            PointState newState = generateNextState(i, random);
+            points.add(new Point(newState));
+        }
+    }
+
+    private PointState generateNextState(int index, Random random) {
+        Point lastPoint = points.get(index - 1);
+        if (lastPoint.isMovable()) {
+            return PointState.NOT_MOVABLE;
+        } else {
+            return generateRandomState(random);
+        }
+    }
+
+    private PointState generateRandomState(Random random) {
+        if (random.nextBoolean()) {
+            return PointState.MOVABLE;
+        } else {
+            return PointState.NOT_MOVABLE;
         }
     }
 
     public List<Point> getPoints() {
         return points;
     }
-
 }
