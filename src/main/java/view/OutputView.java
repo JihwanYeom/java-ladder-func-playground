@@ -11,15 +11,29 @@ public class OutputView {
     private static final String NO_LADDER_POINT = "     ";
 
     public static void printLadder(Ladder ladder) {
-        System.out.println("실행 결과");
         List<Line> lines = ladder.getLines();
         for(Line line : lines) {
             printLine(line);
         }
     }
 
+    public static void printPlayers(List<Player> players) {
+        for(Player player : players) {
+            System.out.printf("%-5s ", player.getName());
+        }
+        System.out.println();
+    }
+
+    public static void printResults(List<String> results) {
+        for(String result : results) {
+            System.out.printf("%-5s ", result);
+        }
+        System.out.println();
+    }
+
     private static void printLine(Line line) {
         List<Boolean> points = line.getPoints();
+        System.out.print("  ");
         for(Boolean point : points) {
             System.out.print("|");
             System.out.print(getPointFormat(point));
@@ -27,9 +41,20 @@ public class OutputView {
         System.out.println("|");
     }
 
-    public static void printResult(List<Player> players) {
-        for(int i = 0; i < players.size(); i++) {
-            System.out.println(i + " -> " + players.get(i).getPosition());
+    public static void printResult(String name, List<Player> players, List<String> results) {
+        System.out.println("실행 결과");
+        if(name.equals("all")) {
+            printAllResults(players, results);
+            return;
+        }
+        players.stream().filter(player -> player.getName().equals(name)).forEach(player -> {
+            System.out.println(player.getName() + " : " + results.get(player.getPosition()));
+        });
+    }
+
+    public static void printAllResults(List<Player> players, List<String> results) {
+        for(Player player : players) {
+            System.out.println(player.getName() + " : " + results.get(player.getPosition()));
         }
     }
 

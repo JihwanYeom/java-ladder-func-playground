@@ -9,22 +9,35 @@ import view.OutputView;
 
 public class LadderController {
 
+    List<String> results;
+    List<Player> players = new ArrayList<>();
+
     public void run() {
-        int ladderWidth = InputView.InputWidth();
-        int ladderHeight = InputView.InputHeight();
-        Ladder ladder = new Ladder(ladderWidth, ladderHeight);
-        OutputView.printLadder(ladder);
 
-        List<Player> players = new ArrayList<>();
-        for(int i = 0; i < ladderWidth; i++) {
-            players.add(new Player(i));
+        List<String> names = InputView.inputPlayerNames();
+
+        for(int i = 0; i < names.size(); i++) {
+            players.add(new Player(names.get(i), i));
         }
+        results = InputView.inputResults();
+        int ladderHeight = InputView.inputHeight();
 
+        Ladder ladder = new Ladder(names.size(), ladderHeight);
+        OutputView.printPlayers(players);
+        OutputView.printLadder(ladder);
+        OutputView.printResults(results);
         for(Player player : players) {
             player.down(ladder);
         }
+        while(checkResultLoop());
 
-        OutputView.printResult(players);
+    }
+
+    private Boolean checkResultLoop() {
+        String name = InputView.inputPlayerNameToCheckResult();
+        if(name.isEmpty()) return false;
+        OutputView.printResult(name ,players, results);
+        return true;
     }
 
 }

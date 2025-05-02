@@ -3,10 +3,12 @@ package domain;
 import java.util.List;
 
 public class Player {
+    String name;
     int position;
 
-    public Player (int position) {
+    public Player (String name ,int position) {
         this.position = position;
+        this.name = name;
     }
 
     public void down(Ladder ladder) {
@@ -29,5 +31,9 @@ public class Player {
 
     public int getPosition() {
         return position;
+    }
+
+    public String getName() {
+        return name;
     }
 }
