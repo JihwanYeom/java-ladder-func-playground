@@ -6,18 +6,19 @@ import java.util.Random;
 
 public class Line {
 
-    private final List<Boolean> points;
+    private final List<Point> points;
 
     public Line(int width) {
         points = new ArrayList<>();
         Random random = new Random();
-        points.add(random.nextBoolean());
+        points.add(new Point(random.nextBoolean()));
         for (int i = 1; i < width; i++) {
-            points.add(random.nextBoolean() && !points.get(points.size() - 1));
+            Point lastPoint = points.get(points.size() - 1);
+            points.add(new Point(random.nextBoolean() && !lastPoint.isMovable()));
         }
     }
 
-    public List<Boolean> getPoints() {
+    public List<Point> getPoints() {
         return points;
     }
 

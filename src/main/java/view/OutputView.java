@@ -3,12 +3,22 @@ package view;
 import domain.Ladder;
 import domain.Line;
 import domain.Player;
+import domain.Players;
+import domain.Point;
+import domain.Result;
+import domain.Results;
 import java.util.List;
 
 public class OutputView {
 
     private static final String LADDER_POINT = "-----";
     private static final String NO_LADDER_POINT = "     ";
+
+    public static void printLadderInfo(Players players, Results results, Ladder ladder) {
+        printPlayers(players.getPlayers());
+        printLadder(ladder);
+        printResults(results.getResults());
+    }
 
     public static void printLadder(Ladder ladder) {
         List<Line> lines = ladder.getLines();
@@ -24,37 +34,39 @@ public class OutputView {
         System.out.println();
     }
 
-    public static void printResults(List<String> results) {
-        for(String result : results) {
-            System.out.printf("%-5s ", result);
+    public static void printResults(List<Result> results) {
+        for(Result result : results) {
+            System.out.printf("%-5s ", result.getResult());
         }
         System.out.println();
     }
 
     private static void printLine(Line line) {
-        List<Boolean> points = line.getPoints();
+        List<Point> points = line.getPoints();
         System.out.print("  ");
-        for(Boolean point : points) {
+        for(Point point : points) {
             System.out.print("|");
-            System.out.print(getPointFormat(point));
+            System.out.print(getPointFormat(point.isMovable()));
         }
         System.out.println("|");
     }
 
-    public static void printResult(String name, List<Player> players, List<String> results) {
+    public static void printResult(String name, List<Player> players, List<Result> results) {
         System.out.println("실행 결과");
         if(name.equals("all")) {
             printAllResults(players, results);
             return;
         }
         players.stream().filter(player -> player.getName().equals(name)).forEach(player -> {
-            System.out.println(player.getName() + " : " + results.get(player.getPosition()));
+            Result result = results.get(player.getPosition());
+            System.out.println(player.getName() + " : " + result.getResult());
         });
     }
 
-    public static void printAllResults(List<Player> players, List<String> results) {
+    public static void printAllResults(List<Player> players, List<Result> results) {
         for(Player player : players) {
-            System.out.println(player.getName() + " : " + results.get(player.getPosition()));
+            Result result = results.get(player.getPosition());
+            System.out.println(player.getName()+ " : " + result.getResult());
         }
     }
 

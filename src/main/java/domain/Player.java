@@ -3,37 +3,53 @@ package domain;
 import java.util.List;
 
 public class Player {
-    String name;
-    int position;
+    private final Name name;
+    private final Position position;
 
-    public Player (String name ,int position) {
+    public Player (Name name ,Position position) {
         this.position = position;
         this.name = name;
     }
 
-    public void down(Ladder ladder) {
+    public void downLadder(Ladder ladder) {
         List<Line> lines = ladder.getLines();
         for(Line line : lines) {
-            move(line);
+            checkAndMove(line);
         }
     }
 
-    public void move(Line line) {
-        List<Boolean> points = line.getPoints();
-        if(position > 0 && points.get(position - 1)) {
-            position--;
+    public void checkAndMove(Line line) {
+        List<Point> points = line.getPoints();
+        if(checkLeft(points)) {
+            position.moveLeft();
             return;
         }
-        if(position < points.size() && points.get(position)) {
-            position++;
+        if(checkRight(points)) {
+            position.moveRight();
         }
+    }
+
+    public boolean checkLeft(List<Point> points) {
+        Point leftPoint = null;
+        if(position.getPosition() > 0)
+            leftPoint = points.get(position.getPosition()-1);
+
+        return leftPoint != null && leftPoint.isMovable();
+    }
+
+    public boolean checkRight(List<Point> points) {
+        Point rightPoint = null;
+        if(position.getPosition() < points.size())
+            rightPoint = points.get(position.getPosition());
+
+        return rightPoint != null && rightPoint.isMovable();
     }
 
     public int getPosition() {
-        return position;
+        return position.getPosition();
     }
 
     public String getName() {
-        return name;
+        return name.getName();
     }
 }
