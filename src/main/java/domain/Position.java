@@ -33,10 +33,9 @@ public class Position {
         if (this == object) {
             return true;
         }
-        if (!(object instanceof Position)) {
+        if (!(object instanceof Position other)) {
             return false;
         }
-        Position other = (Position) object;
         return position == other.position;
     }
 

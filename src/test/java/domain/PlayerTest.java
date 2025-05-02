@@ -10,13 +10,11 @@ public class PlayerTest {
 
     private Ladder ladder;
     private Player player;
-    private Position playerPosition;
-    private Name playerName;
 
     @BeforeEach
     void setUp() {
-        playerName = new Name("Test");
-        playerPosition = new Position(1);
+        Name playerName = new Name("Test");
+        Position playerPosition = new Position(1);
         player = new Player(playerName, playerPosition);
         ladder = new Ladder(3, 1);
     }
