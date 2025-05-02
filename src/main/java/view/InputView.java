@@ -28,7 +28,7 @@ public class InputView {
     }
 
     public static String inputPlayerNameToCheckResult() {
-        System.out.println("결과를 보고 싶은 사람은?");
+        System.out.println("결과를 보고 싶은 사람은?(공백인 상태로 엔터를 입력하면 종료됩니다)");
         return scanner.nextLine();
     }
 }
