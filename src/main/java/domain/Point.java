@@ -12,9 +12,11 @@ public class Point {
     }
 
     public void setMovable(boolean movable) {
-        if (movable)
+        if (movable) {
             state = PointState.MOVABLE;
-        if (!movable)
+        }
+        if (!movable) {
             state = PointState.NOT_MOVABLE;
+        }
     }
 }

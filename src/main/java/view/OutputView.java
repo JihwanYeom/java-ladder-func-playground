@@ -24,20 +24,20 @@ public class OutputView {
 
     public static void printLadder(Ladder ladder) {
         List<Line> lines = ladder.getLines();
-        for(Line line : lines) {
+        for (Line line : lines) {
             printLine(line);
         }
     }
 
     public static void printPlayers(List<Player> players) {
-        for(Player player : players) {
+        for (Player player : players) {
             System.out.printf("%-5s ", player.getName().getName());
         }
         System.out.println();
     }
 
     public static void printResults(List<Result> results) {
-        for(Result result : results) {
+        for (Result result : results) {
             System.out.printf("%-5s ", result.getResult());
         }
         System.out.println();
@@ -46,7 +46,7 @@ public class OutputView {
     private static void printLine(Line line) {
         List<Point> points = line.getPoints();
         System.out.print("  ");
-        for(Point point : points) {
+        for (Point point : points) {
             System.out.print("|");
             System.out.print(getPointFormat(point.isMovable()));
         }
@@ -76,6 +76,7 @@ public class OutputView {
             System.out.println(player.getName().getName() + " : " + result.getResult());
         }
     }
+
     private static String getPointFormat(Boolean point) {
         String result;
         if (point) {

@@ -35,12 +35,14 @@ public class LadderController {
     }
 
     private void runResultQueryLoop() {
-        while (checkResultLoop());
+        while (checkResultLoop()) ;
     }
 
     private Boolean checkResultLoop() {
         String name = InputView.inputPlayerNameToCheckResult();
-        if(name.isEmpty()) return false;
+        if (name.isEmpty()) {
+            return false;
+        }
         OutputView.printResult(name, players, results);
         return true;
     }

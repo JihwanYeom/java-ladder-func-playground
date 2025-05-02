@@ -1,4 +1,5 @@
 package domain;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -21,8 +22,9 @@ public class LineTest {
     void 라인의_인접한_Point는_동시에_MOVABLE일_수_없다() {
         List<Point> points = new Line(100).getPoints();
 
-        for (int i = 1; i < points.size(); i++)
+        for (int i = 1; i < points.size(); i++) {
             assertThat(points.get(i - 1).isMovable() && points.get(i).isMovable()).isFalse();
+        }
     }
 
     @Test
