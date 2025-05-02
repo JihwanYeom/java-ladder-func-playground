@@ -10,7 +10,7 @@ public class Ladder {
     public Ladder(int width, int height) {
         lines = new ArrayList<>();
         for(int i = 0; i < height; i++) {
-            lines.add(new Line(width));
+            lines.add(new Line(width-1));
         }
     }
 

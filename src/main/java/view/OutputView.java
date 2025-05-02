@@ -10,6 +10,7 @@ public class OutputView {
     private static final String NO_LADDER_POINT = "     ";
 
     public static void printLadder(Ladder ladder) {
+        System.out.println("실행 결과");
         List<Line> lines = ladder.getLines();
         for(Line line : lines) {
             printLine(line);
