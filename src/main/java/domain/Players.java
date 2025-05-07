@@ -22,10 +22,12 @@ public class Players {
 
     private static void validate(List<String> names) {
         Set<String> nameSet = new HashSet<>();
-        for (String name : names) {
-            if (!nameSet.add(name)) {
-                throw new IllegalArgumentException("중복된 이름이 있습니다: " + name);
-            }
+        names.forEach(name -> checkDuplicate(nameSet, name));
+    }
+
+    private static void checkDuplicate(Set<String> nameSet, String name) {
+        if (!nameSet.add(name)) {
+            throw new IllegalArgumentException("중복된 이름이 있습니다: " + name);
         }
     }
 
