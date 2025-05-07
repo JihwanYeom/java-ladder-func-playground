@@ -29,6 +29,10 @@ public class Players {
         }
     }
 
+    public void moveDown(Ladder ladder) {
+        players.forEach(player -> player.downLadder(ladder));
+    }
+
     public Player findByName(Name name) {
         return players.stream()
                 .filter(player -> player.hasName(name))

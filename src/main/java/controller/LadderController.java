@@ -8,30 +8,25 @@ import view.OutputView;
 
 public class LadderController {
 
-    Players players;
-    Results results;
+    private final Players players;
+    private final Results results;
 
-    public void run() {
-        initializeGame();
-        Ladder ladder = createLadder();
-        OutputView.printLadderInfo(players, results, ladder);
-        movePlayersDown(ladder);
-        runResultQueryLoop();
-    }
-
-    private void initializeGame() {
+    public LadderController() {
         players = Players.of(InputView.inputPlayerNames());
         results = Results.of(InputView.inputResults());
+    }
+
+    public void run() {
+        Ladder ladder = createLadder();
+        OutputView.printLadderInfo(players, results, ladder);
+        players.moveDown(ladder);
+        runResultQueryLoop();
     }
 
     private Ladder createLadder() {
         int ladderWidth = players.getPlayers().size();
         int ladderHeight = InputView.inputHeight();
         return new Ladder(ladderWidth, ladderHeight);
-    }
-
-    private void movePlayersDown(Ladder ladder) {
-        players.getPlayers().forEach(player -> player.downLadder(ladder));
     }
 
     private void runResultQueryLoop() {
