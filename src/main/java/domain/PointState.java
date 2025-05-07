@@ -18,10 +18,9 @@ public enum PointState {
     }
 
     public static PointState randomState() {
-        if (random.nextBoolean()) {
+        if (random.nextBoolean()){
             return MOVABLE;
-        } else {
-            return NOT_MOVABLE;
         }
+        return NOT_MOVABLE;
     }
 }
