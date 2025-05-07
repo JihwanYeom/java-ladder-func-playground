@@ -21,9 +21,8 @@ public class Line {
         Point lastPoint = points.get(index - 1);
         if (lastPoint.isMovable()) {
             return PointState.NOT_MOVABLE;
-        } else {
-            return PointState.randomState();
         }
+        return PointState.randomState();
     }
 
     public List<Point> getPoints() {
