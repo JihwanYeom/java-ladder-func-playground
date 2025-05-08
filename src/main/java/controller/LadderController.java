@@ -1,7 +1,10 @@
 package controller;
 
 import domain.Ladder;
+import domain.Name;
+import domain.Player;
 import domain.Players;
+import domain.Result;
 import domain.Results;
 import view.InputView;
 import view.OutputView;
@@ -30,7 +33,7 @@ public class LadderController {
     }
 
     private void runResultQueryLoop() {
-        while (checkResultLoop()) ;
+        while (checkResultLoop());
     }
 
     private Boolean checkResultLoop() {
@@ -38,8 +41,25 @@ public class LadderController {
         if (name.isEmpty()) {
             return false;
         }
-        OutputView.printResult(name, players, results);
+        if (name.trim().equals("all")) {
+            printAllResults(players, results);
+            return true;
+        }
+        printSingleResult(name, players, results);
         return true;
+    }
+
+    private void printAllResults(Players players, Results results) {
+        for (Player player : players.getPlayers()) {
+            Result result = results.findByPosition(player.getPosition());
+            OutputView.printResult(player, result);
+        }
+    }
+
+    private void printSingleResult(String name, Players players, Results results) {
+        Player player = players.findByName(new Name(name));
+        Result result = results.findByPosition(player.getPosition());
+        OutputView.printResult(player, result);
     }
 
 }

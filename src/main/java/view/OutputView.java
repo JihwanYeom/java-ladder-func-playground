@@ -2,7 +2,6 @@ package view;
 
 import domain.Ladder;
 import domain.Line;
-import domain.Name;
 import domain.Player;
 import domain.Players;
 import domain.Point;
@@ -53,28 +52,8 @@ public class OutputView {
         System.out.println("|");
     }
 
-    public static void printResult(String name, Players players, Results results) {
-        System.out.println("실행 결과");
-
-        // "all"이 입력된 경우, 모든 결과를 출력
-        if ("all".equals(name)) {
-            printAllResults(players, results);
-        } else {
-            printSingleResult(name, players, results);
-        }
-    }
-
-    private static void printSingleResult(String name, Players players, Results results) {
-        Player player = players.findByName(new Name(name));
-        Result result = results.findByPosition(player.getPosition());
+    public static void printResult(Player player, Result result) {
         System.out.println(player.getName().getName() + " : " + result.getResult());
-    }
-
-    private static void printAllResults(Players players, Results results) {
-        for (Player player : players.getPlayers()) {
-            Result result = results.findByPosition(player.getPosition());
-            System.out.println(player.getName().getName() + " : " + result.getResult());
-        }
     }
 
     private static String getPointFormat(Boolean point) {
