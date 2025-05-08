@@ -11,7 +11,7 @@ public class Ladder {
         validate(width, height);
         lines = new ArrayList<>();
         for (int i = 0; i < height; i++) {
-            lines.add(new Line(width - 1));
+            lines.add(Line.from(width - 1));
         }
     }
 

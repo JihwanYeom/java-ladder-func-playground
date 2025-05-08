@@ -57,12 +57,9 @@ public class OutputView {
     }
 
     private static String getPointFormat(Boolean point) {
-        String result;
         if (point) {
-            result = LADDER_POINT;
-        } else {
-            result = NO_LADDER_POINT;
+            return LADDER_POINT;
         }
-        return result;
+        return NO_LADDER_POINT;
     }
 }
